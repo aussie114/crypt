@@ -3,7 +3,7 @@
 #include "gtk_helper_functions.h"
 #include "generate_password.h"
 
-static void on_generate_from_file_pressed(GtkWidget * caller, gpointer data)
+void on_generate_from_file_pressed(GtkWidget * caller, gpointer data)
 {
 	GtkWidget ** widgets = (GtkWidget **)data;
 	ghf_text_view_set_text(widgets[4], "");

@@ -2,7 +2,7 @@
 #include "gtk_helper_functions.h"
 #include "generate_password.h"
 
-static void on_generate_single_pressed(GtkWidget * caller, gpointer data)
+void on_generate_single_pressed(GtkWidget * caller, gpointer data)
 {
 	GtkWidget ** widgets = (GtkWidget **)data;
 
