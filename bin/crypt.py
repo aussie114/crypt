@@ -3,7 +3,6 @@ from getpass import getpass
 from sys import argv as sys_argv
 from hashlib import sha256
 from csv import reader
-import cProfile
 
 def main(argc, argv):
     if   argc == 2:
@@ -29,7 +28,6 @@ def main(argc, argv):
             quit()
         else:
             print("\033[1A\033[K", end="")
-
 
 def sha256sum(string):
     hasher = sha256()
