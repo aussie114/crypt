@@ -9,10 +9,10 @@ GTK4
 You can either generate a password by filling in the fields at the bottom or passing in a file and then entering a keyword
 If you wish to generate from file you must pass in a csv file at execution (e.g. ./crypt data/example.csv) The format of the CSV file must be as follows:
 
-service, username, length, special(true or false)
-service, username, length, special(true or false)
-service, username, length, special(true or false)
-...
-Check the example.csv in the data folder.
+service, username, length, special(true or false)  
+service, username, length, special(true or false)  
+service, username, length, special(true or false)  
+...  
+Check the example.csv in the data folder.  
 
 There is also a cli version writtin in Python in the bin folder.
