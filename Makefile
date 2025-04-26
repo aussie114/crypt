@@ -1,7 +1,9 @@
-run: build
-	./bin/crypt
+OBJECTS = $(patsubst src/%.c, build/%.o, $(wildcard src/*.c))
 
-build: build/generate_from_file.o build/generate_password.o build/generate_single.o build/global.o build/gtk_helper_functions.o build/main.o 
+run: build
+	./bin/crypt data/example.csv
+
+build: $(OBJECTS)
 	gcc `pkg-config --libs gtk4` build/*.o -o ./bin/crypt
 
 build/generate_from_file.o: include/generate_from_file.h src/generate_from_file.c
