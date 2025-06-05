@@ -1,27 +1,17 @@
-#include <gtk/gtk.h>
-
-gchar * sha256_hash(const gchar * str) {
-    GChecksum * checksum = g_checksum_new(G_CHECKSUM_SHA256);
-    g_checksum_update(checksum, (const guchar*)str, -1);
-    
-    gchar * digest = g_strdup(g_checksum_get_string(checksum));
-    g_checksum_free(checksum);
-    
-    return digest;
-}
+#include <stdio.h>
+#include <stdlib.h>
+#include "sha256.h"
 
 char * charactors = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
 void generate_password(char output[], char * service, char * username, char * length, char * special, char * keyword)
 {
 	// ------------------------------------------------------------------------------------------ hash inputs
-	char * hashes[] = 
-	{
-		sha256_hash(service),
-		sha256_hash(username),
-		sha256_hash(length),
-		sha256_hash(special),
-		sha256_hash(keyword)
-	};
+	char hashes[5][65];
+	sha256(service,  hashes[0]);
+	sha256(username, hashes[1]);
+	sha256(length,   hashes[2]);
+	sha256(special,  hashes[3]);
+	sha256(keyword,  hashes[4]);
 	// -------------------------------------------------------- Zips 256 hashes together into a single string
 	char hash_string[321] = {'\0'};
 	for (int i = 0, j = 0; i < 320; i += 5, j++)
@@ -31,12 +21,6 @@ void generate_password(char output[], char * service, char * username, char * le
 			hash_string[i+k]   = hashes[k][j];
 		}
 	}
-	// ------------------------------------------------------------------------------------------ Free hashes
-	g_free(hashes[0]);
-	g_free(hashes[1]);
-	g_free(hashes[2]);
-	g_free(hashes[3]);
-	g_free(hashes[4]);
 	// ------------------------------------------------------------------------------ Gets initial seed value
 	unsigned long long seed_value = 0;
 	unsigned long long seed_value_capped = 0;
@@ -54,7 +38,7 @@ void generate_password(char output[], char * service, char * username, char * le
 	}
 	// --------------------------------------------------------------------------------- Generates a password
 	int attempt = 0;
-	long long password_length = g_ascii_strtoll(length, NULL, 10);
+	long long password_length = strtol(length, NULL, 10);
 	while (1)
 	{
 		for (int i = 0; i < 257; i++)
