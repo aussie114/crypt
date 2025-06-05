@@ -24,14 +24,9 @@ def main(argc, argv):
         print("Usage:\n\tcrypt.py service username length special\n\tcrypt.py /address/to/csv/file")
         quit()
 
-    quit()
 
-    while(1):
-        response = input("Python Enter q to quit: ")
-        if response == 'q':
-            quit()
-        else:
-            print("\033[1A\033[K", end="")
+    response = input("Press return to quit...")
+    quit()
 
 def sha256sum(string):
     hasher = sha256()
