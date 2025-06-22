@@ -1,13 +1,13 @@
 OBJECTS = $(patsubst src/%.c, build/%.o, $(wildcard src/*.c))
 
-build: $(OBJECTS)
-	gcc build/*.o -o bin/crypt
-
 run: build
-	foot --app-id crypt -W 50x30 ./bin/crypt ./data/example.csv 2>/dev/null
+	bin/crypt data/example.csv
+
+build: $(OBJECTS)
+	gcc `pkg-config --libs gtk4` build/*.o -o bin/crypt
 
 build/%.o: src/%.c
-	gcc -Wall -Wextra -Iinclude -c $< -o $@
+	gcc -Wall -Wextra -Iinclude `pkg-config --cflags gtk4` -c $< -o $@
 
 clean:
-	rm -rf build/* bin/*
+	rm -rf build/* bin/crypt

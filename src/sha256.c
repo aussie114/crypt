@@ -172,7 +172,7 @@ void sha256_final(SHA256_CTX *ctx, BYTE hash[])
 * Everything below is a modification of Brad Conte's work
 ********************************************************************/
 
-void sha256(char * input, char output[65])
+void sha256(const char * input, char output[65])
 {
     BYTE hash[SHA256_BLOCK_SIZE];  // 32 bytes
     SHA256_CTX ctx;
