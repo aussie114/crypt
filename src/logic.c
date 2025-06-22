@@ -180,20 +180,35 @@ void on_generate_single_pressed(GtkWidget * caller, gpointer data)
 
 	// Check entries
 	gboolean error = false;
+	// Keyword
 	if ( gtk_entry_get_text_length( GTK_ENTRY(BOTTOM_KEYWORD_ENTRY) ) == 0 )
 	{
 		gtk_entry_set_placeholder_text( GTK_ENTRY(BOTTOM_KEYWORD_ENTRY) , "Keyword required" );
 		error = true;
 	}
+	else
+	{
+		gtk_entry_set_placeholder_text( GTK_ENTRY(BOTTOM_KEYWORD_ENTRY) , "Keyword" );
+	}
+	// Service
 	if ( gtk_entry_get_text_length( GTK_ENTRY(SERVICE_ENTRY) ) == 0 )
 	{
 		gtk_entry_set_placeholder_text( GTK_ENTRY(SERVICE_ENTRY) , "Service required" );
 		error = true;
 	}
+	else
+	{
+		gtk_entry_set_placeholder_text( GTK_ENTRY(SERVICE_ENTRY) , "Service" );
+	}
+	// Username
 	if ( gtk_entry_get_text_length( GTK_ENTRY(USERNAME_ENTRY) ) == 0 )
 	{
 		gtk_entry_set_placeholder_text( GTK_ENTRY(USERNAME_ENTRY) , "Username required" );
 		error = true;
+	}
+	else
+	{
+		gtk_entry_set_placeholder_text( GTK_ENTRY(USERNAME_ENTRY) , "Username" );
 	}
 	if (error) {return;}
 
