@@ -5,7 +5,7 @@ from hashlib import sha256
 from csv import reader
 
 def main(argc, argv):
-
+    # Generate from file
     if   argc == 2:
         keyword = getpass("Enter keyword: ")
         file = open(argv[1], mode="r")
@@ -14,7 +14,7 @@ def main(argc, argv):
             password = generate_password(line[0], line[1], line[2], line[3], keyword)
             print("/--------------------------------%s\n%s\n%s\n" % (line[0], line[1], password))
         file.close()
-
+    # Generate single
     elif argc == 5:
         keyword = getpass("Enter keyword: ")
         password = generate_password(argv[1], argv[2], argv[3], argv[4], keyword )
@@ -43,13 +43,11 @@ def generate_password(service, username, length, special, keyword):
         sha256sum(special),
         sha256sum(keyword)
     ]
-
     # --------------------------------------------------------- Zips 256 hashes together into a single string
     hash_string = ""
 
     for i in range(64):
         hash_string += "%c%c%c%c%c" % (hashes[0][i], hashes[1][i], hashes[2][i], hashes[3][i], hashes[4][i])
-
    # ------------------------------------------------------------------------------- Gets initial seed value
     seed_value = 0
     for c in hash_string:
@@ -62,7 +60,6 @@ def generate_password(service, username, length, special, keyword):
         cap = 62
         flags[3] = 1
     # ------------------------------------------------------------------------- Generates a password
-
     password = ""
     attempt = 0
 
@@ -71,20 +68,21 @@ def generate_password(service, username, length, special, keyword):
 
         for i in range(int(length)):
             seed_value += ord(hash_string[i])
+            capped_seed_value = seed_value % cap
 
-            if   seed_value % cap <= 25:
+            if   capped_seed_value <= 25:
                 flags[0] += 1
 
-            elif seed_value % cap >= 26 and seed_value % cap <= 51:
+            elif capped_seed_value >= 26 and capped_seed_value <= 51:
                 flags[1] += 1
 
-            elif seed_value % cap >= 52 and seed_value % cap <= 61:
+            elif capped_seed_value >= 52 and capped_seed_value <= 61:
                 flags[2] += 1
 
-            elif seed_value % cap >= 62:
+            elif capped_seed_value % cap >= 62:
                 flags[3] += 1
 
-            password += charactors[seed_value % cap]
+            password += charactors[capped_seed_value]
     # -------------------------------------------------------------------- Returns if attempt is 100
         if attempt >= 100:
             return password
