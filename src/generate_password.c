@@ -255,15 +255,16 @@ void sha256_final(SHA256_CTX *ctx, BYTE hash[])
 
 void sha256(const char * input, char output[65])
 {
-    BYTE hash[SHA256_BLOCK_SIZE];  // 32 bytes
-    SHA256_CTX ctx;
+	BYTE hash[SHA256_BLOCK_SIZE];
+	SHA256_CTX ctx;
 
-    sha256_init(&ctx);
-    sha256_update(&ctx, (const BYTE *)input, strlen(input));
-    sha256_final(&ctx, hash);
+	sha256_init(&ctx);
+	sha256_update(&ctx, (const BYTE *)input, strlen(input));
+	sha256_final(&ctx, hash);
 
-
-   for (int i = 0; i < 32; ++i)
-        sprintf(output + (i * 2), "%02x", hash[i]);
-    output[64] = '\0';
+	for (int i = 0; i < 32; ++i)
+	{
+		sprintf(output + (i * 2), "%02x", hash[i]);
+	}
+	output[64] = '\0';
 }

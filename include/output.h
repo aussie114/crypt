@@ -1,6 +1,6 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
-typedef struct 
+typedef struct
 {
 	GtkWidget * viewer;
 	GtkWidget * scrolled_window;

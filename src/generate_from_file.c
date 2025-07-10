@@ -28,25 +28,25 @@ static void on_button_pressed(GtkWidget * caller, gpointer data)
 	const char * keyword  = gtk_editable_get_text(GTK_EDITABLE(keyword_entry));
 
 	// Open file
-    GError * error = NULL;
-    GFile * file = g_file_new_for_path(file_address);
-    GFileInputStream * file_stream = g_file_read(file, NULL, &error);
+	GError * error = NULL;
+	GFile * file = g_file_new_for_path(file_address);
+	GFileInputStream * file_stream = g_file_read(file, NULL, &error);
     if (!file_stream) 
 	{
 		gchar * output =  g_strdup_printf("%s", error->message);
 		set_output(output);
-        g_error_free(error);
-        g_object_unref(file);
+		g_error_free(error);
+		g_object_unref(file);
 		g_free(output);
-        return;
-    }
+		return;
+	}
 
 	// Stream file
 	set_output("");
-    GDataInputStream * data_stream = g_data_input_stream_new(G_INPUT_STREAM(file_stream));
-    gchar * line;
-    gsize length;
-    while ((line = g_data_input_stream_read_line(data_stream, &length, NULL, &error)) != NULL) 
+	GDataInputStream * data_stream = g_data_input_stream_new(G_INPUT_STREAM(file_stream));
+	gchar * line;
+	gsize length;
+	while ((line = g_data_input_stream_read_line(data_stream, &length, NULL, &error)) != NULL) 
 	{
 		gchar ** fields = g_strsplit(line, ",", -1);
 		
@@ -69,11 +69,11 @@ static void on_button_pressed(GtkWidget * caller, gpointer data)
 		g_free(output);
 		g_strfreev(fields);
 		g_free(line);
-    }
+	}
 
-    g_object_unref(data_stream);
-    g_object_unref(file_stream);
-    g_object_unref(file);
+	g_object_unref(data_stream);
+	g_object_unref(file_stream);
+	g_object_unref(file);
 }
 
 void create_generate_from_file()
