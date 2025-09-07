@@ -11,3 +11,4 @@ build/%.o: src/%.c
 
 clean:
 	rm -rf build/* bin/crypt
+
