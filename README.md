@@ -1,5 +1,5 @@
 ## crypt  
-![screenshot.png](https://github.com/aussie114/crypt/blob/master/data/screenshot.png)  
+![screenshot.png](https://github.com/aussie114/crypt/blob/master/screenshots/screenshot.png)  
 
 ## Dependencies  
 readline
