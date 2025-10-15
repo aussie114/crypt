@@ -1,7 +1,3 @@
-#!/bin/sh
-tail -n +5 "$0" | gcc -c -xc -Wall -Wextra -std=c99 - -o build/"$(basename "$0" .c).o"
-exit
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -75,7 +71,7 @@ void generate_password(char output[257], const char * service, const char * user
 			return;
 		}
 		// -------------------------------------------------------------------------------- Password rejected
-		//printf("Password rejected: %s flags: %d, %d, %d, %d\n", output, flags[0], flags[1], flags[2], flags[3]);
+		//g_print("Password rejected: %s flags: %d, %d, %d, %d\n", output, flags[0], flags[1], flags[2], flags[3]);
 		flags[0] = 0;
 		flags[1] = 0;
 		flags[2] = 0;
